@@ -1,0 +1,21 @@
+{
+    "manifest_version": 2,
+    "name": "TeleChrome",
+    "description": "Telegramm parser",
+    "version": "1",
+    "author": "Ayrat2017",
+    "content_scripts": [{
+        "matches": ["https://web.telegram.org/*", "http://dev.altacar.ru/*"],
+        "js": ["tele-script.js"],
+        "run_at": "document_end"
+    }],
+    "browser_action": {
+        "default_icon": "default-icon-t.png",
+        "default_title": "Let's tele",
+        "default_popup": "popup.html"
+    },
+    "chrome_url_overrides": {
+        "newtab": "newtab.html"
+    },
+    "permissions": ["activeTab", "https://ajax.googleapis.com/*"]
+}
