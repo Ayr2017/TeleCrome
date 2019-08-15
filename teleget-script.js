@@ -17,7 +17,10 @@ window.onload = function() {
                 timeStart = new Date().getTime();
                 openMembersList();
             }
-
+            if (evtobj.keyCode == 90 && evtobj.altKey) {
+                checkURL();
+                sendMessage();
+            }
         }
 
         function saveFile(data, filename, type) {
