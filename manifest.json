@@ -6,7 +6,7 @@
     "author": "Ayrat2017",
     "content_scripts": [{
         "matches": ["https://web.telegram.org/*", "http://dev.altacar.ru/*"],
-        "js": ["tele-script.js"],
+        "js": ["teleget-script.js", "telesend-script.js"],
         "run_at": "document_end"
     }],
     "browser_action": {
