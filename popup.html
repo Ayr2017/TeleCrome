@@ -6,15 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
 
 <body>
-    <input type="text" name="link" id="link">
-    <input id="sendlink" type="button" value="click">
+    <header></header>
+    <main>
+        <div class="wrapper">
+            <input type="text" class="input-night" name="link" id="link">
+            <input id="sendmsgbtn" class="btn wrapper-margin input-night" type="button" value="Send msg">
+            <input id="stopmsgbtn" class="btn wrapper-margin input-night" type="button" value="Stop msg">
+            <input id="infobtn" class="btn wrapper-margin input-night" type="button" value="Information">
+            <span class="information"> You setn <span class="sentmsgcount">12</span> msg from <span class="allmsgcount">112</span> </span>
+
+
+        </div>
+
+    </main>
+    <footer></footer>
 
     <script src="popup.js"></script>
-    <script src="script.js"></script>
 </body>
 
 </html>

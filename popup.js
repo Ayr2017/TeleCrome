@@ -1,10 +1,11 @@
-var sendLink = document.querySelector('#sendlink');
-sendLink.addEventListener('click', sendTo);
+var sendmsgbtn = document.querySelector('#sendmsgbtn');
+sendmsgbtn.addEventListener('click', setFlagInLocalStorage);
 
-function sendTo() {
-    var link = document.querySelector('#link');
-    var linkValue = link.value;
-    console.log(linkValue);
-    console.dir(document);
+function setFlagInLocalStorage() {
+
+    chrome.storage.local.set({ "phasersTo": "awesome" }, function() {
+        //  Data's been saved boys and girls, go on home
+        console.log('Saved.')
+    });
 
 }
