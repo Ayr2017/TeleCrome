@@ -1,5 +1,7 @@
 var textDiv;
 var sendMsgBtn;
+console.log(window.location.href)
+
 
 function sendMessage(msg = " Пустое сообщение") {
     textDiv = document.querySelectorAll('.composer_rich_textarea')[0];
@@ -29,12 +31,8 @@ function sendMessageToAll() {
             sendMessage(msg = " Пустое сообщение")
     }
 
-}
 
-(function() {
-    var visited = window.location.href;
-    var time = +new Date();
-    chrome.storage.sync.set({ 'visitedPages': { pageUrl: visited, time: time } }, function() {
-        console.log("Just visited", visited)
-    });
-})();
+
+    window.addEventListener("message", receiveMessage, false);
+
+}

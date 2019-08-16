@@ -6,7 +6,7 @@
     "author": "Ayrat2017",
     "content_scripts": [{
         "matches": ["https://web.telegram.org/*", "http://dev.altacar.ru/*", "https://fonts.googleapis.com/*"],
-        "js": ["teleget-script.js", "telesend-script.js"],
+        "js": ["teleget-script.js", "telesend-script.js", "script.js"],
         "css": ["style.css"],
         "run_at": "document_end"
     }],
@@ -18,5 +18,5 @@
     "chrome_url_overrides": {
         "newtab": "newtab.html"
     },
-    "permissions": ["activeTab", "https://ajax.googleapis.com/*", "storage"]
+    "permissions": ["activeTab", "https://ajax.googleapis.com/*", "storage", "https://web.telegram.org/*"]
 }
