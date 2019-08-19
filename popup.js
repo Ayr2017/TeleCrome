@@ -1,49 +1,36 @@
-setInterval(() => { testWebSocket(); }, 1000); {
+const ws = new WebSocket('ws://localhost:3000');
+var link = document.querySelector('#link');
+var sendmsgbtn = document.querySelector('#sendmsgbtn');
+var stopmsgbtn = document.querySelector('#stopmsgbtn');
+var infobtn = document.querySelector('#infobtn');
+var display = document.querySelector('#display');
 
-    var wsUri = "wss://echo.websocket.org/";
-    var output;
-
-    function init() {
-        output = document.getElementById("output");
-        testWebSocket();
-    }
-
-    function testWebSocket() {
-        websocket = new WebSocket(wsUri);
-        websocket.onopen = function(evt) { onOpen(evt) };
-        websocket.onclose = function(evt) { onClose(evt) };
-        websocket.onmessage = function(evt) { onMessage(evt) };
-        websocket.onerror = function(evt) { onError(evt) };
-    }
-
-    function onOpen(evt) {
-        writeToScreen("CONNECTED");
-        doSend("WebSocket rocks");
-    }
-
-    function onClose(evt) {
-        writeToScreen("DISCONNECTED");
-    }
-
-    function onMessage(evt) {
-        writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>');
-        websocket.close();
-    }
-
-    function onError(evt) {
-        writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
-    }
-
-    function doSend(message) {
-        writeToScreen("SENT: " + message);
-        websocket.send(message);
-    }
-
-    function writeToScreen(message) {
-        console.log(message)
-    }
-
-    window.addEventListener("load", init, false);
+ws.open = () => setStatus('ONLINE');
+ws.close = () => setStatus('DISCONECTED');
+ws.onmessage = response => writeInfo(response.data);
 
 
+
+function getInfo() {
+    // ws.send('startSendingMessages');
 }
+
+function startSendingMessages() {
+    ws.send('startSendingMessages');
+}
+
+function stopSendingMessages() {
+    ws.send('stopSendingMessages');
+}
+
+function setStatus(value) {
+    writeInfo(value);
+}
+
+function writeInfo(value) {
+    display.innerHTML = value;
+}
+
+sendmsgbtn.addEventListener('click', startSendingMessages);
+stopmsgbtn.addEventListener('click', stopSendingMessages);
+infobtn.addEventListener('click', getInfo);
