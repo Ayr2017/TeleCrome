@@ -46,3 +46,36 @@ body {
     /* border-left: 2px solid lime; */
     box-shadow: -2px 0 0 0 #00ff00f6, 0 0 1px 1px #929292;
 }
+
+.downloadwrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 5px 0;
+}
+
+.input_file {
+    display: none;
+}
+
+.custom-file-upload {
+    background: #434c57;
+    border: 1px solid #3f4750;
+    color: #aaa;
+    display: inline-block;
+    cursor: pointer;
+    height: 20px;
+    flex: 0 0 auto;
+    min-width: 97px;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid #3f4750;
+}
+
+.hr {
+    width: 100%;
+    padding-top: 5px;
+    border-bottom: 1px solid #929292;
+    color: #adc4ad79;
+}
