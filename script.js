@@ -14,7 +14,8 @@ function messageProcessor(msg) {
         localStorage.setItem('addressMap', msg);
     }
 }
-sendMessages();
+// sendMessages();
+checkPageURL()
 
 function sendMessages() {
     var isSend = localStorage.getItem('isSend');
@@ -29,6 +30,20 @@ function sendMessages() {
     localStorage.setItem('addressMap', JSON.stringify([...x]));
 }
 
-function writeToLocalStorage(key, value) {
-    localStorage.setItem(key, value);
+function checkPageURL() { // Проверка. Подходит ли данная страница для отправки сообщений
+    var url = window.location.href;
+    // var regex = RegExp('.*telegram\.org/#/im?p=.*');
+    // var regex = RegExp('@AltoCarContactBot$');
+    var addressMap = localStorage.getItem('addressMap');
+    // var addressArray = JSON.parse(addressMap);
+    // console.log(addressArray);
+    // if (addressArray.length <= 0) return false;
+    // var r = addressArray[addressArray.length - 1];
+    // console.log(r); 
+    console.log(addressMap);
+    // var flag = regex.test(url);
+    // if (flag) console.log(`FLAG true`);
+    // else console.log('FLAG false');
+    // console.log(url)
+
 }

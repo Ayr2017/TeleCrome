@@ -23,8 +23,8 @@ function checkURL(url) {
 
 function sendMessageToAll() {
     let addresses = new Set();
-    addresses.add('@neeviktor');
-    addresses.add('@igorkalmykov');
+    // addresses.add('@neeviktor');
+    // addresses.add('@igorkalmykov');
     for (let address of addresses) {
         if (checkURL(address))
 
