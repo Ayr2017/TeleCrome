@@ -1,4 +1,3 @@
-// import { clearInterval } from "timers";
 const ws = new WebSocket('ws://localhost:3000');
 var addressArray;
 var messageForSending = JSON.parse(localStorage.getItem('message'));
