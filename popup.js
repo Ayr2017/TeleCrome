@@ -1,5 +1,5 @@
 const ws = new WebSocket('ws://localhost:3000');
-var link = document.querySelector('#link');
+var msgtxt = document.querySelector('#msgtxt');
 var sendmsgbtn = document.querySelector('#sendmsgbtn');
 var stopmsgbtn = document.querySelector('#stopmsgbtn');
 var infobtn = document.querySelector('#infobtn');
@@ -24,7 +24,11 @@ ws.onmessage = response => {
     }
 };
 
-
+function sendMessageText() {
+    var txt = msgtxt.value;
+    var o = JSON.stringify({ msgtext: txt });
+    ws.send(o);
+}
 
 function getInfo() {
     ws.send('i');
@@ -58,6 +62,7 @@ function checkLocalStorageSendFlag() {
     }
 }
 
+sendmsgtxtbtn.addEventListener('click', sendMessageText);
 sendmsgbtn.addEventListener('click', startSendingMessages);
 stopmsgbtn.addEventListener('click', stopSendingMessages);
 infobtn.addEventListener('click', getInfo);
