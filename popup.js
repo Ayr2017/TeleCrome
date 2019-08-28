@@ -76,13 +76,15 @@ function readText(that) {
         reader.onload = function(e) {
             var output = e.target.result;
             output = output.trim();
+            output = output.replace(/"/g, '')
+            output = output.replace(/{/g, '')
+            output = output.replace(/}/g, '')
             addressCollectionAsText = output;
             output = output.split(",");
             for (let val of output) {
-                let v = val.split('@');
-                addressCollectionAsMap.set(v[0].trim(), '@' + v[1].trim())
+                let v = val.split(':');
+                addressCollectionAsMap.set(v[0].trim(), v[1].trim())
             }
-
         };
         reader.readAsText(that.files[0]);
     }
