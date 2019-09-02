@@ -2,17 +2,18 @@ const ws = new WebSocket('ws://localhost:3000');
 var addressArray;
 var messageForSending = JSON.parse(localStorage.getItem('message'));
 messageForSending = messageForSending.msgtext;
-console.log(messageForSending);
+if (!messageForSending) console.error('Please, send text message into field');
 
 ws.open = () => setStatus('ONLINE');
 ws.close = () => setStatus('DISCONECTED');
 ws.onmessage = response => messageProcessor(response.data);
+/* ws.onmessage = response => responseDataController(response.data); */
 
 function messageProcessor(msg) {
     console.log(msg)
     if (msg == 'startSendingMessages') {
         localStorage.setItem('isSend', true);
-        sendMessages();
+        specialMethod();
     } else if (msg == 'stopSendingMessages') {
         localStorage.setItem('isSend', false);
     } else if (msg[0] == '[') {
@@ -21,44 +22,21 @@ function messageProcessor(msg) {
         localStorage.setItem('message', msg);
     }
 }
-// sendMessages();
 
-// function sendMessages() {
-//     var isSend = localStorage.getItem('isSend');
-//     var addressMap = localStorage.getItem('addressMap');
-//     addressArray = JSON.parse(addressMap);
-//     console.info(1)
-//     if (isSend && addressArray.length > 0) {
-//         console.info(2)
-//         var postfix = addressArray[addressArray.length - 1][1];
-//         console.info(3)
-//         if (checkPageURL(postfix)) {
-//             console.info(4)
-//             sendMessage('Не просто сообщение _');
-//             console.info(5)
-//             return;
-//         } else {
-//             window.location.href = `https://web.telegram.org/#/im?p=${postfix}`;
-//         }
-//     }
+/* function responseDataController(responseData) {
+    var dataKey = JSON.parse(responseData)[0];
+    var dataValue = JSON.parse(responseData)[1];
+    switch (dataKey) {
+        case 'cmd':
+            console.log(dataValue);
+            // cmdController(dataValue);
+            break;
+        case 'addressCollection':
+            break;
+    }
+} */
 
-// }
 
-// function checkPageURL(postfix) { // Проверка. Подходит ли данная страница для отправки сообщений
-//     var localUrl = window.location.href;
-//     var regex = RegExp(`${postfix}`);
-//     return regex.test(localUrl);
-// }
-
-// function setAddressMap() {
-//     console.log(addressArray);
-//     addressArray.pop();
-//     localStorage.setItem('addressMap', JSON.stringify(addressArray));
-//     if (addressArray.length > 0) {
-//         console.log('End setAddressMap.');
-//         location.reload(true);
-//     }
-// }
 window.addEventListener('hashchange', specialMethod)
 window.addEventListener('load', specialMethod)
 window.addEventListener('load', function(e) { console.log('load') })
@@ -68,8 +46,11 @@ function specialMethod() {
 
     const promise = new Promise((resolve, reject) => {
         var isSend = localStorage.getItem('isSend');
+        isSend == false ? isSend = false : isSend = true;
         var addressMap = localStorage.getItem('addressMap');
         addressArray = JSON.parse(addressMap);
+        console.log(isSend)
+        console.log(typeof isSend)
         if (isSend && addressArray.length > 0) {
             var postfix = addressArray[addressArray.length - 1][1];
             var localUrl = window.location.href;
@@ -96,14 +77,17 @@ function specialMethod() {
                         clearInterval(interval);
                         resolve();
                     }
-                }, 1000);
+                }, 10);
 
             })
         })
         .then(data => {
             return new Promise((resolve, reject) => {
                 console.log('Promise 12');
+                messageForSending = JSON.parse(localStorage.getItem('message'));
+                messageForSending = messageForSending.msgtext;
                 sendMsgBtn = document.querySelectorAll('[type="submit"]')[0];
+                console.log(messageForSending);
                 if (messageForSending) {
                     textDiv.innerHTML = messageForSending;
                     textDiv.focus();
@@ -113,26 +97,26 @@ function specialMethod() {
         })
         .then(elem => {
             return new Promise((resolve, reject) => {
-                console.log('Promise 13 ' + elem);
+                console.log('Promise 13 ');
                 let event = new Event('mousedown');
                 if (elem.dispatchEvent(event)) {
                     setTimeout(() => {
-                        console.log(elem);
                         resolve();
-                    }, 1000);
+                    }, 10);
                 }
             })
         })
         .then(elem => {
             return new Promise((resolve, reject) => {
-                console.log('https://web.telegram.org/#/im?p=' + addressArray[addressArray.length - 1][1]);
                 addressArray.pop();
                 localStorage.setItem('addressMap', JSON.stringify(addressArray));
                 if (addressArray.length > 0) {
-                    console.log('End setAddressMap.');
+                    ws.send(`Осталось ${addressArray.length} элементов.`);
                     // location.reload(true);
                     location.replace('https://web.telegram.org/#/im?p=u140794344_10084542481547959278');
                     // document.location.href = 'https://web.telegram.org/#/im?p=' + addressArray[addressArray.length - 1][1];
+                } else {
+                    ws.send('Передача сообщений завершена!');
                 }
             })
         })
