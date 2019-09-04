@@ -7,7 +7,7 @@ if (!messageForSending) console.error('Please, send text message into field');
 ws.open = () => setStatus('ONLINE');
 ws.close = () => setStatus('DISCONECTED');
 ws.onmessage = response => messageProcessor(response.data);
-/* ws.onmessage = response => responseDataController(response.data); */
+
 
 function messageProcessor(msg) {
     console.log(msg)
@@ -23,18 +23,6 @@ function messageProcessor(msg) {
     }
 }
 
-/* function responseDataController(responseData) {
-    var dataKey = JSON.parse(responseData)[0];
-    var dataValue = JSON.parse(responseData)[1];
-    switch (dataKey) {
-        case 'cmd':
-            console.log(dataValue);
-            // cmdController(dataValue);
-            break;
-        case 'addressCollection':
-            break;
-    }
-} */
 
 
 window.addEventListener('hashchange', specialMethod)
@@ -113,7 +101,7 @@ function specialMethod() {
                 if (addressArray.length > 0) {
                     ws.send(`Осталось ${addressArray.length} элементов.`);
                     // location.reload(true);
-                    location.replace('https://web.telegram.org/#/im?p=u140794344_10084542481547959278');
+                    location.replace('https://web.telegram.org/#/im?p=' + addressArray[addressArray.length - 1][1]);
                     // document.location.href = 'https://web.telegram.org/#/im?p=' + addressArray[addressArray.length - 1][1];
                 } else {
                     ws.send('Передача сообщений завершена!');
