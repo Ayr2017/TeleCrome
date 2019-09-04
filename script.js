@@ -100,7 +100,6 @@ function specialMethod() {
                 localStorage.setItem('addressMap', JSON.stringify(addressArray));
                 if (addressArray.length > 0) {
                     ws.send(`Осталось ${addressArray.length} элементов.`);
-                    // location.reload(true);
                     location.replace('https://web.telegram.org/#/im?p=' + addressArray[addressArray.length - 1][1]);
                     // document.location.href = 'https://web.telegram.org/#/im?p=' + addressArray[addressArray.length - 1][1];
                 } else {
